@@ -1,0 +1,106 @@
+org.hibernate.dialect.MySQL5Dialect
+Hibernate: 
+    
+    create table coursematerials (
+       id bigint not null auto_increment,
+        data varchar(250) not null,
+        type varchar(255) not null,
+        courseId bigint not null,
+        primary key (id)
+    ) engine=MyISAM
+Hibernate: 
+    
+    create table courses (
+       id bigint not null auto_increment,
+        name varchar(50) not null,
+        teacherId bigint,
+        primary key (id)
+    ) engine=MyISAM
+Hibernate: 
+    
+    create table students (
+       id bigint not null auto_increment,
+        dob date not null,
+        email varchar(100) not null,
+        firstname varchar(50) not null,
+        lastname varchar(50),
+        type varchar(255) not null,
+        primary key (id)
+    ) engine=MyISAM
+Hibernate: 
+    
+    create table studentscourses (
+       studentid bigint not null,
+        courseid bigint not null
+    ) engine=MyISAM
+Hibernate: 
+    
+    create table teachers (
+       id bigint not null auto_increment,
+        dob date not null,
+        email varchar(100) not null,
+        firstname varchar(50) not null,
+        lastname varchar(50),
+        type varchar(255) not null,
+        primary key (id)
+    ) engine=MyISAM
+Hibernate: 
+    
+    alter table coursematerials 
+       drop index UK_haekusixlf76g9wwlfhnslxlq
+Hibernate: 
+    
+    alter table coursematerials 
+       add constraint UK_haekusixlf76g9wwlfhnslxlq unique (courseId)
+Hibernate: 
+    
+    alter table coursematerials 
+       drop index UKfife2fvpyxcmcoko0n9rj1ja9
+Hibernate: 
+    
+    alter table coursematerials 
+       add constraint UKfife2fvpyxcmcoko0n9rj1ja9 unique (data, type, courseId)
+Hibernate: 
+    
+    alter table coursematerials 
+       add constraint FKexr25b8xwnnw1pc0aafvfovj0 
+       foreign key (courseId) 
+       references courses (id)
+Hibernate: 
+    
+    alter table courses 
+       add constraint FKodub8gdbffojhkad3thodn6ku 
+       foreign key (teacherId) 
+       references teachers (id)
+Hibernate: 
+    
+    alter table studentscourses 
+       add constraint FK93fk8m7eufhc6hu1uh2a6aeok 
+       foreign key (courseid) 
+       references courses (id)
+Hibernate: 
+    
+    alter table studentscourses 
+       add constraint FK7rx25gh61k5s8myejcf34gh2i 
+       foreign key (studentid) 
+       references students (id)
+
+       
+--------------------------------
+
+coursematerials:
+id, data, type, courseId
+
+courses:
+id, name, teacherId
+
+students:
+id, dob, email, firstname, lastname, type
+
+studentscourses:
+studentid, courseid
+
+teachers:
+id, dob, email, firstname, lastname, type
+       
+     
